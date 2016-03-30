@@ -58,6 +58,12 @@ casper.start();
 casper.userAgent(ua);
 casper.viewport(viewport.width, viewport.hight);
 casper.setHttpAuth(basicId, basicPass);
+casper.page.paperSize = {
+  format: 'A4',
+  orientation: 'portrait',
+  margin: '0mm'
+};
+
 
 // 取得したURLリストからキャプチャーを撮る処理
 casper.each(captureList, function(casper, data) {
@@ -70,13 +76,13 @@ casper.each(captureList, function(casper, data) {
     });
     this.then(function () {
         // コマンドラインにメッセージを出す
-        this.echo('URL: ' + url + ' | File: ' + file + '.png');
+        this.echo('URL: ' + url + ' | File: ' + file + '.pdf');
         // background-colorに指定がない場合透過されるので色をつける
         this.evaluate(function(){
             $('body').css('background-color','#fff');
         });
         // キャプチャーした画像を保存する。/ をつけることでフォルダを作成
-        this.capture(screenshotDateTime + '-' + inputDevice + '/' + file + '.png');
+        this.capture(screenshotDateTime + '-' + inputDevice + '/' + file + '.pdf');
     });
 });
 
